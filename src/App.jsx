@@ -1,11 +1,12 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
+import { Outlet } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div>
-      <Button>Download Resume</Button>
-    </div>
+    <>
+      <Outlet/>
+    </>
   )
 }
 
