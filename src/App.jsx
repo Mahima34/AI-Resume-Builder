@@ -1,13 +1,25 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
+import { useUser } from '@clerk/clerk-react';
+import Header from './components/custom/Header';
 
-const App = () => {
+
+function App() {
+  const [count, setCount] = React.useState(0);
+  const {user, isLoaded, isSignedIn } = useUser();
+
+if(!isSignedIn&&isLoaded){
+  return <Navigate to='/auth/sign-in' />
+}
+
   return (
-    <>
-      <Outlet/>
-    </>
+    <div>
+      <Header/>
+      <Outlet />
+    </div>
   )
 }
 
 export default App
+

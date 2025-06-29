@@ -10,17 +10,15 @@ import './dashboard/index.jsx'
 import './auth/sign-in/index.jsx'
 import './home/index.jsx'
 import './App.jsx'
+import { ClerkProvider } from '@clerk/clerk-react'
 
 
 
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 const Router =createBrowserRouter([
   {
    element: <App/>,
    children: [
-    {
-      path: '/',
-      element: <Home/>
-    },
     {
       path: '/dashboard',
       element: <Dashboard/>
@@ -28,12 +26,18 @@ const Router =createBrowserRouter([
    ]
   },
   {
+      path: '/',
+      element: <Home/>
+    },
+  {
     path: '/auth/sign-in',
     element: <SignInPage/>
   }
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={Router} />
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <RouterProvider router={Router} />
+    </ClerkProvider>
   </StrictMode>,
 )
