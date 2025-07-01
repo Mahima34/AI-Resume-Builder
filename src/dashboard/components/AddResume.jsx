@@ -1,4 +1,4 @@
-import { PlusSquare } from 'lucide-react'
+import { Loader2, PlusSquare } from 'lucide-react'
 import React from 'react'
 import {
   Dialog,
@@ -10,15 +10,42 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { v4 as uuidv4 } from 'uuid';
+import GlobalApi from './../../../service/GlobalApi'
+import { useUser } from '@clerk/clerk-react'
+
+
 function AddResume() {
 
 const [openDialog, setOpenDialog] = React.useState(false);
 const [resumeTitle, setResumeTitle] = React.useState();
-
+const {user}=useUser();
+const [Loading, setLoading] = React.useState(false);
 
 
 const onCreateResume = () => {
-  console.log('resumeTitle', resumeTitle)
+setLoading(true);
+  const uuid = uuidv4();
+
+const data = {
+  data:{
+    title: resumeTitle,
+    resumeId: uuid,
+    userEmail: user?.primaryEmailAddress?.emailAddress,
+    userName:user?.fullName
+  }
+}
+
+GlobalApi.CreateNewResume(data).then(resp=>{
+  console.log(resp);
+  if(resp){
+    setLoading(false);
+  }
+
+},()=>{
+  setLoading(false);
+})
+
 }
 
 
@@ -35,11 +62,15 @@ const onCreateResume = () => {
       <DialogTitle>Create New Resume</DialogTitle>
       <DialogDescription>
         <p>Add a title for your New Resume</p>
-       <input className='my-2' placeholder='Ex.Full Stack Resume'/>
+       <input className='my-2' placeholder='Ex.Full Stack Resume'
+       onChange={(e)=> setResumeTitle(e.target.value)}
+       />
       </DialogDescription>
       <div className='flex justify-end gap-5'>
         <Button onClick={() => setOpenDialog(false)} variant="ghost">Cancel</Button>
-        <Button onClick={onCreateResume} variant="default">Create</Button>
+        <Button disabled={!resumeTitle || Loading} onClick={onCreateResume} variant="default">
+          {Loading ? <Loader2 className="animate-spin" /> : "Create"}
+        </Button>
       </div>
     </DialogHeader>
   </DialogContent>
