@@ -11,8 +11,7 @@ import './auth/sign-in/index.jsx'
 import './home/index.jsx'
 import './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
-import EditResume from './dashboard/resume/[resumeId]/index.jsx'
-
+import { Toaster } from "sonner";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 const Router =createBrowserRouter([
@@ -26,7 +25,12 @@ const Router =createBrowserRouter([
     {
       path: '/dashboard/resume/:resumeId',
       element: <EditResume/>
-    }
+    },
+    {
+  path: "dashboard/resume/:resumeId",
+  element: <EditResume />,
+}
+
    ]
   },
   {

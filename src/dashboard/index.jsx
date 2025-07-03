@@ -3,7 +3,7 @@ import AddResume from './components/AddResume'
 import { useUser } from '@clerk/clerk-react';
 import GlobalApi from './../../service/GlobalApi';
 import ResumeCardItem from './components/ResumeCardItem';
-
+import { Notebook } from 'lucide-react';
 
 
 function Dashboard() {
@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     if (user) {
       GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress).then((resp) => {
-        setResumeList(resp.data);
+        setResumeList(resp.data.data);
       });
     }
   }, [user]);

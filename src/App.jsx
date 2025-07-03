@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Navigate, Outlet } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';
 import Header from './components/custom/Header';
+import { Toaster } from "sonner";
 
 
 function App() {
@@ -15,6 +16,8 @@ if(!isSignedIn&&isLoaded){
 
   return (
     <div>
+       <Toaster position="top-right" />
+      {/* your routes/components */}
       <Header/>
       <Outlet />
     </div>
