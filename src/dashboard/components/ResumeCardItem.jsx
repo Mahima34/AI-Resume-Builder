@@ -1,6 +1,7 @@
 import { Loader2Icon, MoreVertical } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -62,7 +63,7 @@ function ResumeCardItem({resume,refreshData}) {
               </div>
         </div>
         </Link>
-        <div className='border p-3 flex justify-between  text-white rounded-b-lg shadow-lg'
+        <div className='flex justify-between p-3 text-white border rounded-b-lg shadow-lg'
          style={{
           background:resume?.themeColor
         }}>
@@ -70,7 +71,7 @@ function ResumeCardItem({resume,refreshData}) {
          
           <DropdownMenu>
           <DropdownMenuTrigger>
-          <MoreVertical className='h-4 w-4 cursor-pointer'/>
+          <MoreVertical className='w-4 h-4 cursor-pointer'/>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
            
